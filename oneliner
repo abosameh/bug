@@ -8,3 +8,4 @@ kr brute testphp.vulnweb.com -A=httparchive_directories_1m_2023_10_28.txt -v inf
 gobuster dns -d yahoo.in -w 2m-subdomains.txt
 sqlmap -u https://testphp.vulnweb.com--forms --batch --crawl=10 --cookie=jsessionid=12345 --level=5 --risk=3
 for sub in $(cat domains);do /usr/bin/gron "https://otx.alienvault.com/otxapi/indicator/hostname/url_list/$sub?limit=100&page=1" | grep "\burl\b" | gron --ungron | jq |egrep -wi 'url' | awk '{print $2}' | sed 's/"//g'| sort -u | tee -a file.txt  ;done
+python cors_scan.py -i top_100_domains.txt -t 100
