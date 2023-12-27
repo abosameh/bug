@@ -9,3 +9,5 @@ gobuster dns -d yahoo.in -w 2m-subdomains.txt
 sqlmap -u https://testphp.vulnweb.com--forms --batch --crawl=10 --cookie=jsessionid=12345 --level=5 --risk=3
 for sub in $(cat domains);do /usr/bin/gron "https://otx.alienvault.com/otxapi/indicator/hostname/url_list/$sub?limit=100&page=1" | grep "\burl\b" | gron --ungron | jq |egrep -wi 'url' | awk '{print $2}' | sed 's/"//g'| sort -u | tee -a file.txt  ;done
 python cors_scan.py -i top_100_domains.txt -t 100
+sst lfi /usr/share/wordlists/seclists/Fuzzing/template-engines-expression.txt
+dalfox file url.txt --remote-payloads portswigger,payloadbox --only-poc o dalfox 
