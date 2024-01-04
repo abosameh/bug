@@ -1,7 +1,7 @@
 mrco24-error-sql -u http://testphp.vulnweb.com/artists.php?artist=1 -o output.txt -v
 mrco24-error-sql -f wayback -o output.txt -v
 mrco24-blaind_sql -f wayback -o blind.txt
-mrco24-lfi -f wayback -p payloads.txt -o output.txt -v
+mrco24-lfi -f wayback -p /root/tools/sec/Fuzzing/LFI/LFI-Jhaddix.txt -o lfi.txt -v
 sed 's/=.*$/=/' url.txt | anew | tee -a live_url.txt
 sudomy -d domain.com -dP -eP -rS -cF -pS -tO -gW --httpx --dnsx  -aI webanalyze --slack -sS
 cat domains_with_bounties.txt | while read url;do target=$(curl -s -I -H "Origin: https://evil.com" -X GET $url) | if grep 'https://evil.com'; then [Potentional CORS Found]echo $url;else echo Nothing on "$url";fi;done
