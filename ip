@@ -1,0 +1,24 @@
+#1-wget https://download.ip2location.com/lite/IP2LOCATION-LITE-DB1.CSV.ZIP
+#2-unzip IP2LOCATION-LITE-DB1.CSV.ZIP
+#3-grep Austria IP2LOCATION-LITE-DB1.CSV > austria.csv
+#4-run a simple script to convert the IPs to a usable format.use this python:
+import socket
+import struct
+
+input_file = open("austria.csv", "r")
+output_file = open("austria.ips", "w")
+
+for line in input_file:
+  to_ip, from_ip, _, _ = line.replace("\"", "").split(",")
+
+  to_ip = int(to_ip)
+  from_ip = int(from_ip)
+
+  for ip_index in range(to_ip, from_ip):
+    ip = socket.inet_ntoa(struct.pack("!L", ip_index))
+    output_file.write(ip + "\n")
+
+input_file.close()
+output_file.close()
+#5-masscan -p445 --rate 300 -iL austria.ips -oG austria.445.scan && cat austria.445.scan | wc -l
+6-masscan -pU:53 -iL austria.ips -oG austria.53.scan && cat austria.53.scan | wc -l
