@@ -1,3 +1,4 @@
+/server-status?full=true
 /account
 /account/
 /accounts
